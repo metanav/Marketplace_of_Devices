@@ -37,10 +37,13 @@ class ServiceProvider(IndustryMarketplace):
             return
 
         try:
-            self.log("submodels.values", submodels.values)
-            self.log("data", data)
-            #result = loaded_model.predict()
-            ret = self.proposal(data, price_in_iota=price)
+            #self.log("submodels.values", submodels.values)
+            #self.log("data", data)
+            result = loaded_model.predict(data)
+            if result[0] == 1:
+                ret = self.proposal(data, price_in_iota=price)
+            else:
+                self.log('proposal did not send')
         except Exception as e:
             self.log('Unable to send proposal', e)
 
