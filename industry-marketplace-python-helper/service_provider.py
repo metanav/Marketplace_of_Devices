@@ -95,5 +95,5 @@ class ServiceProvider(IndustryMarketplace):
 if __name__ == '__main__':
     imp = ServiceProvider()
     # load model from file
-    imp.load_model('../Marketplace_of_Devices/saved_model/finalized_model.sav');
+    imp.load_model('../saved_model/finalized_model.sav');
     imp.listen()
