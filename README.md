@@ -8,7 +8,8 @@ The idea is to use the sent or rejected proposal data which were decided by huma
 
 We have considered Drone Connectivity Provioning service as an example.
 
-The full example code which uses the model for decision can be found in industry-marketplace-python-helper/service_provider.py 
-The request can be send using UI by selecting "Drone Connectivity Provision" operation or running industry-marketplace-python-helper/service_requester.py with drone_connectivity_provision parameter.
+The full example code which uses the model for decision can be found at industry-marketplace-python-helper/service_provider.py. 
+
+The request can be sent using UI by selecting "Drone Connectivity Provision" operation or running industry-marketplace-python-helper/service_requester.py with drone_connectivity_provision parameter.
 
 
