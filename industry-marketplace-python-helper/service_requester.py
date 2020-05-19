@@ -3,12 +3,12 @@ import pprint
 import sys
 
 class ServiceRequester(IndustryMarketplace):
-    name = 'Requester100'
+    name = 'Requester:4000'
     service_provider = False
-    fund_wallet = True
+    fund_wallet = False
     gps_coords = '54.000, 4.000'
 
-    endpoint = 'http://192.168.3.5:4001'
+    endpoint = 'http://192.168.3.5:4000'
     
     def on_proposal(self, data, irdi, submodels):
         '''
@@ -42,20 +42,32 @@ if __name__ == '__main__':
     # Either run it as a listeing service
     if len(sys.argv) == 1:
         imp.listen()
+
+    # Or as a one time command requesting a drone!
+    if len(sys.argv) == 2 and sys.argv[1] == 'request_drone':
+
+        values = {
+            '0173-1#02-AAJ336#002': 2,
+            '0173-1#02-BAF163#002': '54.1234, 4.3210',
+            '0173-1#02-AAO631#002': '54.4321, 4.5210',
+        }
+
+        ret = imp.cfp(irdi='0173-1#01-AAJ336#002', values=values, location='54.321, 4.123')
+        #pprint.pprint(ret)
     
-    # Or as a one time command provisioning drone connectivity!
+    # Or as a one time command to provision drone connectivity!
     if len(sys.argv) == 2 and sys.argv[1] == 'drone_connectivity_provision':
 
         values = {
             "0173-1#02-AAA818#006" : 32,
             "0173-1#02-AAB919#007" : 23,
             "0173-1#02-AAI957#004" : 95,
-            "0173-1#07-ABA076#001" : 1,
-            "0173-1#07-ABA075#001" : 0,
+            "0173-1#07-ABA076#001" : True,
+            "0173-1#07-ABA075#001" : False,
             "0173-1#02-AAF090#005" : 9.39,
             "0173-1#02-BAF163#002" : "50.0960212, 9.3479825" 
         }
 
-        ret = imp.cfp(irdi='0173-1#01-BAF577#004"', values=values, location='54.321, 4.123')
-        #pprint.pprint(ret)
+        ret = imp.cfp(irdi='0173-1#01-BAF577#004', values=values, location='54.321, 4.123')
+        pprint.pprint(ret['error'])
     
