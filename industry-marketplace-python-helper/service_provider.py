@@ -5,18 +5,24 @@ import pickle
 
 
 class ServiceProvider(IndustryMarketplace):
-    name = 'DronesRus'
+    name = 'ServiceProvider:4001'
     service_provider = True
     fund_wallet = False
     gps_coords = '54.123, 4.321'
     
-    endpoint = 'http://192.168.3.5:4000'
+    endpoint = 'http://192.168.3.5:4001'
 
     def load_model(self, filename):
+        '''
+         Load the saved model. Take care while loading saved model from
+         different CPU architecture, they might not work. 
+         This model was created using Raspberry Pi 4
+        '''
         try:
             self.loaded_model = pickle.load(open(filename, 'rb'))
+            self.log('Loaded model: %s' % filename)
         except Exception as e:
-            self.log('Loading model failed', e)
+            self.log('Loading model failed')
 
     def on_cfp(self, data, irdi, submodels):
         '''
@@ -37,13 +43,34 @@ class ServiceProvider(IndustryMarketplace):
             return
 
         try:
-            #self.log("submodels.values", submodels.values)
-            #self.log("data", data)
-            result = loaded_model.predict(data)
-            if result[0] == 1:
+            #self.log("submodels.values")
+            #pprint.pprint(submodels.values())
+            # prepare model input, order matters
+            lng, lat = submodels['0173-1#02-BAF163#002']['value'].split(', ')
+            model_input = [
+               submodels['0173-1#02-AAA818#006']['value'],
+               submodels['0173-1#02-AAB919#007']['value'],
+               submodels['0173-1#02-AAI957#004']['value'],
+               int(submodels['0173-1#07-ABA076#001']['value']),
+               int(submodels['0173-1#07-ABA075#001']['value']),
+               submodels['0173-1#02-AAF090#005']['value'],
+               float(lng),
+               float(lat)
+            ]
+            
+            self.log("model input:")
+            pprint.pprint(model_input)
+
+            # do inferencing
+            prediction = self.loaded_model.predict([model_input])
+            self.log('prediction:')
+            self.log(prediction[0])
+
+            # decision time
+            if prediction[0] == 1:
                 ret = self.proposal(data, price_in_iota=price)
             else:
-                self.log('proposal did not send')
+                self.log('model decision: do not sent proposal!')
         except Exception as e:
             self.log('Unable to send proposal', e)
 
@@ -67,5 +94,6 @@ class ServiceProvider(IndustryMarketplace):
 
 if __name__ == '__main__':
     imp = ServiceProvider()
-    imp.load_model('../saved_model/finalized_model.sav');
+    # load model from file
+    imp.load_model('../Marketplace_of_Devices/saved_model/finalized_model.sav');
     imp.listen()
