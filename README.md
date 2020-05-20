@@ -23,6 +23,10 @@ To build a Decision Trees model please use the notebook notebooks/Service_Provid
 
 The full example code which uses the model for decision can be found at industry-marketplace-python-helper/service_provider.py. 
 
-The request can be sent using UI by selecting "Drone Connectivity Provision" operation or running industry-marketplace-python-helper/service_requester.py with drone_connectivity_provision parameter.
+The request can be sent using UI by selecting "Drone Connectivity Provision" operation or running following command.
+
+```
+python3 industry-marketplace-python-helper/service_requester.py  drone_connectivity_provision parameter
+```
 
 
