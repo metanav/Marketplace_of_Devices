@@ -19,7 +19,7 @@ $ npx babel-node index.js > data.json
 
 ```
 
-To build a Decision Trees model please use the notebook notebooks/Service_Provider_Decision_Tree_Classifier.ipynb.
+To build a Decision Trees model please use the notebook notebooks/Service_Provider_Decision_Tree_Classifier.ipynb. The model is serialized and saved to file using pickle module. The saved model is not portable across different python build so please build the model on the same machine or the machine with similar python build (32bit or 64bit).
 
 The full example code which uses the model for decision can be found at industry-marketplace-python-helper/service_provider.py. 
 
