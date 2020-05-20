@@ -8,6 +8,17 @@ The idea is to use the sent or rejected proposal data which were decided by huma
 
 We have considered Drone Connectivity Provioning service as an example.
 
+To generate synthetic dataset use the script generate_data/index.js as follows.
+
+
+```
+
+$ cd generate_data
+$ npm install
+$ npx babel-node index.js > data.json
+
+```
+
 To build a Decision Trees model please use the notebook notebooks/Service_Provider_Decision_Tree_Classifier.ipynb.
 
 The full example code which uses the model for decision can be found at industry-marketplace-python-helper/service_provider.py. 
