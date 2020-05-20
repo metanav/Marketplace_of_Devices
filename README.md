@@ -23,10 +23,17 @@ To build a Decision Trees model please use the notebook notebooks/Service_Provid
 
 The full example code which uses the model for decision can be found at industry-marketplace-python-helper/service_provider.py. 
 
-The request can be sent using UI by selecting "Drone Connectivity Provision" operation or running following command.
+After starting up Service Provider and Service Requester servers, run following command to listen on CFP callback.
+
+```
+python3 industry-marketplace-python-helper/service_provider.py 
+```
+
+The CFP request can be sent using UI by selecting "Drone Connectivity Provision" operation or running following command.
 
 ```
 python3 industry-marketplace-python-helper/service_requester.py  drone_connectivity_provision parameter
 ```
 
+Please set name and ip address/port in the service_requester.py and service_provider.py according to your set up.
 
