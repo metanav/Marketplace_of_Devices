@@ -32,7 +32,7 @@ python3 industry-marketplace-python-helper/service_provider.py
 The CFP request can be sent using UI by selecting "Drone Connectivity Provision" operation or running following command.
 
 ```
-python3 industry-marketplace-python-helper/service_requester.py  drone_connectivity_provision parameter
+python3 industry-marketplace-python-helper/service_requester.py  drone_connectivity_provision 
 ```
 
 Please set name and ip address/port in the service_requester.py and service_provider.py according to your set up.
